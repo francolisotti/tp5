@@ -16,8 +16,13 @@ public class Cabin {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="id_cabin")
-    private int id;
+    private Long id;
 
     @Column(name="name")
-    private String nombre;
+    private String name;
+
+    public Cabin(String name){
+        this.name=name;
+    }
+
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CountryPersistence extends JpaRepository<Country,Long> {
+    boolean deleteByName(String name);
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CabinPersistence extends JpaRepository<Cabin,Long> {
+    void deleteByName(String name);
 }

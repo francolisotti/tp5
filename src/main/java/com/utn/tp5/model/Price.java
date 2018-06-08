@@ -1,8 +1,7 @@
 package com.utn.tp5.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -13,14 +12,21 @@ import java.sql.Date;
 @NoArgsConstructor
 @Table(name="prices")
 public class Price {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="id_price")
-    private int id;
+    private Long id;
 
     @Column(name="price")
     private int price;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name="date")
-    private Date date;
+    private Date dateFrom;
+
+    public Price (int price, Date dateFrom){
+        this.price=price;
+        this.dateFrom=dateFrom;
+    }
 }

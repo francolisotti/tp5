@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CityPersistence extends JpaRepository<City,Long> {
+    void deleteByName(String name);
 }

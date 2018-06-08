@@ -13,9 +13,9 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_airport")
-    private int id;
+    private Long id;
 
     @Column(name="iata")
     private String iata;
@@ -24,6 +24,7 @@ public class Airport {
     private String name;
 
     @OneToOne
+    @JoinColumn(name = "fk_id_city")
     private City city;
 
     @Column(name="latitude")

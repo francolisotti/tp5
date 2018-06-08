@@ -1,5 +1,6 @@
 package com.utn.tp5.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_city")
-    private int id;
+    private Long id;
 
     @Column(name="iata")
     private String iata;
@@ -25,7 +26,8 @@ public class City {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_id_country")
     private Country country;
 
     public City(String name, String iata, Country country){
