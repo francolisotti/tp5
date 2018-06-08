@@ -42,8 +42,6 @@ public class CabinController {
         cabinService.saveCabin(cabin);
     }
 
-    @PutMapping()
-
     @DeleteMapping(value = "/delete/{name}")
     public void deleteCountry(@PathVariable("name") String name){
         cabinService.deleteCabin(name);

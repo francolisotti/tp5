@@ -2,14 +2,17 @@ package com.utn.tp5.Service;
 
 import com.utn.tp5.Persistence.PricePersistence;
 import com.utn.tp5.model.Price;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.List;
+
 @Service
 @Transactional
+@AllArgsConstructor
 public class PriceService {
 
     @Autowired
@@ -23,8 +26,13 @@ public class PriceService {
         return pricePersistence.getOne(id);
     }
 
-    public void savePrice(Price p){
-        pricePersistence.save(p);
+    public boolean savePrice(Price p){
+        Price saved = pricePersistence.save(p);
+        boolean rtn = false;
+        if (saved.equals(p)){
+            rtn=true;
+        }
+        return rtn;
     }
 
    /* public void deletePrice(String name){

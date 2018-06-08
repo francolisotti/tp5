@@ -3,6 +3,7 @@ package com.utn.tp5.Service;
 
 import com.utn.tp5.Persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class AirportService {
 
     @Autowired
@@ -24,19 +26,19 @@ public class AirportService {
         return airportPersistence.getOne(id);
     }
 
-    public void saveAirport(Airport a){
-        airportPersistence.save(a);
+    public Boolean saveAirport(Airport a){
+        Airport saved = airportPersistence.save(a);
+        boolean rtn = false;
+        if (saved.equals(a)){
+            rtn=true;
+        }
+        return rtn;
     }
 
-    public void deleteAirport(String name){
-        airportPersistence.deleteByName(name);
+    public boolean deleteAirport(String name){
+        return airportPersistence.deleteByName(name);
     }
-
-    public Airport getByIata(String iata){
-        return airportPersistence.getByIata(iata);
-    }
-
-    public void updateByIata(Airport airport){
+    public Airport updateByIata(Airport airport){
         Airport old = airportPersistence.getByIata(airport.getIata());
 
         old.setName(airport.getName());
@@ -44,7 +46,7 @@ public class AirportService {
         old.setLatitude(airport.getLatitude());
         old.setLongitude(airport.getLongitude());
 
-        airportPersistence.save(old);
+        return airportPersistence.save(old);
     }
 
 }

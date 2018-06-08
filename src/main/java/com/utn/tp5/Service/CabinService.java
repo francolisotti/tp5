@@ -2,6 +2,7 @@ package com.utn.tp5.Service;
 
 import com.utn.tp5.Persistence.CabinPersistence;
 import com.utn.tp5.model.Cabin;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CabinService {
 
     @Autowired
@@ -22,11 +24,16 @@ public class CabinService {
         return cabinPersistence.getOne(id);
     }
 
-    public void saveCabin(Cabin c){
-        cabinPersistence.save(c);
+    public boolean saveCabin(Cabin c){
+        Cabin saved = cabinPersistence.save(c);
+        boolean rtn = false;
+        if (saved.equals(c)){
+            rtn=true;
+        }
+        return rtn;
     }
 
-    public void deleteCabin(String name){
-        cabinPersistence.deleteByName(name);
+    public boolean deleteCabin(String name){
+        return cabinPersistence.deleteByName(name);
     }
 }

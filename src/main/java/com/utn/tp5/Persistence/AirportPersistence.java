@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AirportPersistence extends JpaRepository<Airport,Long> {
-    void deleteByName(String name);
+    boolean deleteByName(String name);
     Airport getByIata(String iata);
 }

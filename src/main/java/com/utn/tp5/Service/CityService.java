@@ -2,6 +2,7 @@ package com.utn.tp5.Service;
 
 import com.utn.tp5.Persistence.CityPersistence;
 import com.utn.tp5.model.City;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CityService {
 
     @Autowired
@@ -23,12 +25,17 @@ public class CityService {
         return cityPersistence.getOne(id);
     }
 
-    public void saveCity(City c){
-        cityPersistence.save(c);
+    public boolean saveCity(City c){
+        City saved = cityPersistence.save(c);
+        boolean rtn = false;
+        if (saved.equals(c)){
+            rtn=true;
+        }
+        return rtn;
     }
 
-    public void deleteCity(String name){
-        cityPersistence.deleteByName(name);
+    public boolean deleteCity(String name){
+        return cityPersistence.deleteByName(name);
     }
 
 }
