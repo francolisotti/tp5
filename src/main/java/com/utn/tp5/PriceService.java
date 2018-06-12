@@ -1,13 +1,12 @@
-package com.utn.tp5.Service;
+package com.utn.tp5;
 
-import com.utn.tp5.Persistence.PricePersistence;
+import com.utn.tp5.persistence.PricePersistence;
 import com.utn.tp5.model.Price;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
 import java.util.List;
 
 @Service

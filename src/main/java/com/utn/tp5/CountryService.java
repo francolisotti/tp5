@@ -1,6 +1,6 @@
-package com.utn.tp5.Service;
+package com.utn.tp5;
 
-import com.utn.tp5.Persistence.CountryPersistence;
+import com.utn.tp5.persistence.CountryPersistence;
 import com.utn.tp5.model.Country;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

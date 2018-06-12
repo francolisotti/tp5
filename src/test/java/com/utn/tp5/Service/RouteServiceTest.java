@@ -1,6 +1,7 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.RoutePersistence;
+import com.utn.tp5.RouteService;
+import com.utn.tp5.persistence.RoutePersistence;
 import com.utn.tp5.model.Route;
 import org.junit.Before;
 import org.junit.Test;

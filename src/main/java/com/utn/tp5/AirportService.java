@@ -1,7 +1,7 @@
-package com.utn.tp5.Service;
+package com.utn.tp5;
 
 
-import com.utn.tp5.Persistence.AirportPersistence;
+import com.utn.tp5.persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +38,9 @@ public class AirportService {
     public boolean deleteAirport(String name){
         return airportPersistence.deleteByName(name);
     }
-    public Airport updateByIata(Airport airport){
-        Airport old = airportPersistence.getByIata(airport.getIata());
-
-        old.setName(airport.getName());
-        old.setCity(airport.getCity());
-        old.setLatitude(airport.getLatitude());
-        old.setLongitude(airport.getLongitude());
-
-        return airportPersistence.save(old);
+    public boolean updateAirport(Airport airport, long id){
+        airport.setId(id);
+        return this.saveAirport(airport);
     }
 
 }

@@ -1,6 +1,7 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.AirportPersistence;
+import com.utn.tp5.AirportService;
+import com.utn.tp5.persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,19 +25,19 @@ public class AirportServiceTest {
         this.airportPersistence = mock(AirportPersistence.class);
         this.airportService = new AirportService(airportPersistence);
         this.airport = mock(Airport.class);
+        when(airportPersistence.save(this.airport)).thenReturn(this.airport);
+        when(airportPersistence.deleteByName(this.airport.getName())).thenReturn(true);
+        when(airportPersistence.getOne(this.airport.getId())).thenReturn(this.airport);
     }
 
     @Test
     public void whenAnAirportIsSaved(){
-        when(airportPersistence.save(this.airport)).thenReturn(this.airport);
         Boolean res = this.airportService.saveAirport(this.airport);
         assertEquals(Boolean.TRUE,res);
     }
 
     @Test
     public void whenAnAirportIsDeleted(){
-        when(airportPersistence.save(this.airport)).thenReturn(this.airport);
-        when(airportPersistence.deleteByName(this.airport.getName())).thenReturn(true);
         this.airportService.saveAirport(this.airport);
         Boolean res = this.airportService.deleteAirport(this.airport.getName());
         assertEquals(Boolean.TRUE,res);
@@ -43,7 +45,6 @@ public class AirportServiceTest {
 
     @Test
     public void whenAnAirportIsAskedById(){
-        when(airportPersistence.getOne(this.airport.getId())).thenReturn(this.airport);
         Airport c = this.airportService.getById(this.airport.getId());
         assertEquals(this.airport,c);
     }
@@ -58,6 +59,7 @@ public class AirportServiceTest {
 
     @Test
     public void whenAnAirportIsModified(){
-        //preguntar a saucorp
+        this.airport.setName("Test");
+        assertTrue(this.airportService.updateAirport(this.airport,(long) 1));
     }
 }

@@ -1,21 +1,23 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CabinDTO;
-import com.utn.tp5.Service.CabinService;
+import com.utn.tp5.CabinService;
 import com.utn.tp5.model.Cabin;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping(value = "/cabin")
 public class CabinController {
     @Autowired
     CabinService cabinService;
+    ModelMapper modelmapper;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<CabinDTO> listCabins() {

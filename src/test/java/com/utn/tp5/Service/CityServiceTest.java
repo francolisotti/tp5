@@ -1,6 +1,7 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.CityPersistence;
+import com.utn.tp5.CityService;
+import com.utn.tp5.persistence.CityPersistence;
 import com.utn.tp5.model.City;
 import org.junit.Before;
 import org.junit.Test;

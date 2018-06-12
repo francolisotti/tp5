@@ -1,6 +1,9 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.RouteXCabinPersistence;
+import com.utn.tp5.RouteXCabinService;
+import com.utn.tp5.persistence.RouteXCabinPersistence;
+import com.utn.tp5.model.Cabin;
+import com.utn.tp5.model.Price;
 import com.utn.tp5.model.RouteXCabin;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,48 +12,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RouteXCabinServiceTest {
 
     private RouteXCabinService routeXCabinService;
-    private RouteXCabin price;
-    private RouteXCabinPersistence pricePersistence;
+    private RouteXCabin routeXCabin;
+    private Price price;
+    private RouteXCabinPersistence routeXCabinPersistence;
 
     @Before
     public void contextLoads(){
-        this.pricePersistence = mock(RouteXCabinPersistence.class);
-        this.routeXCabinService = new RouteXCabinService(pricePersistence);
-        this.price = mock(RouteXCabin.class);
+        this.routeXCabinPersistence = mock(RouteXCabinPersistence.class);
+        this.routeXCabinService = new RouteXCabinService(routeXCabinPersistence);
+        this.routeXCabin = mock(RouteXCabin.class);
+        this.price = mock(Price.class);
+        this.routeXCabin.setPrice(this.price);
+        this.routeXCabin.setCabin(mock(Cabin.class));
+        when(routeXCabinPersistence.save(this.routeXCabin)).thenReturn(this.routeXCabin);
     }
 
     @Test
     public void whenARouteXCabinIsSaved(){
-        when(pricePersistence.save(this.price)).thenReturn(this.price);
-        Boolean res = this.routeXCabinService.saveRouteXCabin(this.price);
+        Boolean res = this.routeXCabinService.saveRouteXCabin(this.routeXCabin);
         assertEquals(Boolean.TRUE,res);
     }
 
 
     @Test
     public void whenARouteXCabinIsAskedById(){
-        when(pricePersistence.getOne(this.price.getId())).thenReturn(this.price);
-        RouteXCabin c = this.routeXCabinService.getById(this.price.getId());
-        assertEquals(this.price,c);
+        when(routeXCabinPersistence.getOne(this.routeXCabin.getId())).thenReturn(this.routeXCabin);
+        RouteXCabin c = this.routeXCabinService.getById(this.routeXCabin.getId());
+        assertEquals(this.routeXCabin,c);
     }
 
     @Test
     public void whenTheRouteXCabinListIsAsked(){
         List<RouteXCabin> expected = new ArrayList<>();
-        when(pricePersistence.findAll()).thenReturn(expected);
-        List<RouteXCabin> prices = this.routeXCabinService.getAll();
-        assertEquals(prices,expected);
+        when(routeXCabinPersistence.findAll()).thenReturn(expected);
+        List<RouteXCabin> routeXCabins = this.routeXCabinService.getAll();
+        assertEquals(routeXCabins,expected);
     }
-    /*
+
     @Test
     public void whenAnRouteXCabinIsModified(){
-        //preguntar a saucorp
+        when(this.routeXCabin.getPrice()).thenReturn(this.price);
+        assertTrue(this.routeXCabinService.modifyRouteXCabin(this.routeXCabin,38456));
     }
-    */
+
 }

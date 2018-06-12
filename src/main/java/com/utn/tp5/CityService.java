@@ -1,6 +1,6 @@
-package com.utn.tp5.Service;
+package com.utn.tp5;
 
-import com.utn.tp5.Persistence.CityPersistence;
+import com.utn.tp5.persistence.CityPersistence;
 import com.utn.tp5.model.City;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

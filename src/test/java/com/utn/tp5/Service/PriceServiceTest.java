@@ -1,6 +1,7 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.PricePersistence;
+import com.utn.tp5.PriceService;
+import com.utn.tp5.persistence.PricePersistence;
 import com.utn.tp5.model.Price;
 import org.junit.Before;
 import org.junit.Test;
