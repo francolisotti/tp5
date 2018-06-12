@@ -1,4 +1,4 @@
-package com.utn.tp5;
+package com.utn.tp5.service;
 
 import com.utn.tp5.persistence.CityPersistence;
 import com.utn.tp5.model.City;

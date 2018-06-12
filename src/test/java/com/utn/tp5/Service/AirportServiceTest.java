@@ -1,6 +1,5 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.AirportService;
 import com.utn.tp5.persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
 import org.junit.Before;

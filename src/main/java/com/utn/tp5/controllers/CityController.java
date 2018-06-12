@@ -1,7 +1,7 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CityDTO;
-import com.utn.tp5.CityService;
+import com.utn.tp5.service.CityService;
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
 import lombok.AllArgsConstructor;

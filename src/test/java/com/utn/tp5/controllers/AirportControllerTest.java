@@ -1,7 +1,7 @@
 package com.utn.tp5.controllers;
 
-import com.utn.tp5.AirportService;
-import com.utn.tp5.CityService;
+import com.utn.tp5.service.AirportService;
+import com.utn.tp5.service.CityService;
 import com.utn.tp5.DTO.AirportDTO;
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.City;

@@ -1,6 +1,5 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.RouteXCabinService;
 import com.utn.tp5.persistence.RouteXCabinPersistence;
 import com.utn.tp5.model.Cabin;
 import com.utn.tp5.model.Price;

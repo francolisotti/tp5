@@ -1,10 +1,10 @@
 package com.utn.tp5.controllers;
 
-import com.utn.tp5.CabinService;
+import com.utn.tp5.service.CabinService;
 import com.utn.tp5.DTO.RouteXCabinDTO;
-import com.utn.tp5.PriceService;
-import com.utn.tp5.RouteService;
-import com.utn.tp5.RouteXCabinService;
+import com.utn.tp5.service.PriceService;
+import com.utn.tp5.service.RouteService;
+import com.utn.tp5.service.RouteXCabinService;
 import com.utn.tp5.model.Cabin;
 import com.utn.tp5.model.Price;
 import com.utn.tp5.model.Route;
