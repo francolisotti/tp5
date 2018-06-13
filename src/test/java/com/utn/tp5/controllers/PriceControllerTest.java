@@ -5,7 +5,7 @@ import com.utn.tp5.service.PriceService;
 import com.utn.tp5.model.Price;
 import org.junit.Before;
 import org.junit.Test;
-import org.modelmapper.ModelMapper;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -15,18 +15,17 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
 public class PriceControllerTest {
 
     private PriceController priceController;
     private PriceService priceService;
     private Price price;
-    private static ModelMapper modelmapper;
 
     @Before
     public void contextLoads(){
         this.priceService = mock(PriceService.class);
-        this.modelmapper = new ModelMapper();
-        this.priceController = new PriceController(this.priceService,this.modelmapper);
+        this.priceController = new PriceController(this.priceService);
         this.price = new Price(1234,mock(Date.class));
         this.price.setId((long)1);
         when(this.priceService.getById((long)1)).thenReturn(this.price);
@@ -40,7 +39,7 @@ public class PriceControllerTest {
         when(this.priceService.getAll()).thenReturn(prices);
         List<PriceDTO> DTOList = priceController.listPrices();
         for (Price price : prices){
-            DTOList.add(modelmapper.map(price,PriceDTO.class));
+            DTOList.add(new PriceDTO(price));
         }
         assertEquals(prices.get(0).getPrice(),DTOList.get(0).getPrice());
     }
@@ -48,7 +47,7 @@ public class PriceControllerTest {
     @Test
     public void whenAPriceIsAskedById(){
         PriceDTO a = priceController.getPriceById(this.price.getId());
-        PriceDTO b = modelmapper.map(this.price,PriceDTO.class);
+        PriceDTO b = new PriceDTO(this.price);
         assertEquals(a.getPrice(),b.getPrice());
     }
 

@@ -1,13 +1,12 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.RouteXCabinPersistence;
 import com.utn.tp5.model.RouteXCabin;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
+import com.utn.tp5.Persistence.RouteXCabinPersistence;
 
 @Service
 @Transactional
@@ -34,11 +33,8 @@ public class RouteXCabinService {
         return rtn;
     }
 
-    public RouteXCabin modifyRouteXCabin(Long route, Long cabin){
-         return routeXCabinPersistence.getByRouteIdAndAndCabinId(route,cabin);
+    public boolean modifyRouteXCabin(RouteXCabin routeXCabin, int newPrice){
+        routeXCabin.getPrice().setPrice(newPrice);
+        return this.saveRouteXCabin(routeXCabin);
     }
-
-    /*public void deleteRouteXCabin(){
-        routeXCabinPersistence.deleteBy(name);
-    }*/
 }

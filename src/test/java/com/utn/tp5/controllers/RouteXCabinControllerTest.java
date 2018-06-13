@@ -11,7 +11,7 @@ import com.utn.tp5.model.Route;
 import com.utn.tp5.model.RouteXCabin;
 import org.junit.Before;
 import org.junit.Test;
-import org.modelmapper.ModelMapper;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
 public class RouteXCabinControllerTest {
 
     private RouteXCabinController routeXCabinController;
@@ -31,7 +32,6 @@ public class RouteXCabinControllerTest {
     private Cabin cabin;
     private Route route;
     private Price price;
-    private static ModelMapper modelmapper;
 
     @Before
     public void contextLoads(){
@@ -39,8 +39,7 @@ public class RouteXCabinControllerTest {
         this.routeService = mock(RouteService.class);
         this.cabinService = mock(CabinService.class);
         this.priceService = mock(PriceService.class);
-        this.modelmapper = new ModelMapper();
-        this.routeXCabinController = new RouteXCabinController(routeXCabinService,routeService,cabinService,priceService,this.modelmapper);
+        this.routeXCabinController = new RouteXCabinController(routeXCabinService,routeService,cabinService,priceService);
         this.cabin = mock(Cabin.class);
         this.route = mock(Route.class);
         this.price = mock(Price.class);
@@ -57,7 +56,7 @@ public class RouteXCabinControllerTest {
         when(this.routeXCabinService.getAll()).thenReturn(routeXCabins);
         List<RouteXCabinDTO> DTOList = routeXCabinController.listRoutesXCabins();
         for (RouteXCabin routeXCabin : routeXCabins){
-            DTOList.add(modelmapper.map(routeXCabin,RouteXCabinDTO.class));
+            DTOList.add(new RouteXCabinDTO(routeXCabin));
         }
         assertEquals(routeXCabins.get(0).getPrice().getPrice(),DTOList.get(0).getPrice().getPrice());
     }
@@ -65,7 +64,7 @@ public class RouteXCabinControllerTest {
     @Test
     public void whenARouteXCabinIsAskedById(){
         RouteXCabinDTO a = routeXCabinController.getRouteXCabinById(this.routeXCabin.getId());
-        RouteXCabinDTO b = modelmapper.map(this.routeXCabin,RouteXCabinDTO.class);
+        RouteXCabinDTO b = new RouteXCabinDTO(this.routeXCabin);
         assertEquals(a.getPrice().getPrice(),b.getPrice().getPrice());
     }
 

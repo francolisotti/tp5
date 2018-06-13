@@ -1,24 +1,16 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CountryDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.utn.tp5.service.CountryService;
-=======
-import com.utn.tp5.Service.CountryService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.CountryService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Country;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/country")
 public class CountryController {
@@ -30,10 +22,8 @@ public class CountryController {
     public List<CountryDTO> listCountries() {
         List<Country> countries = countryService.getAll();
         List<CountryDTO> rtn = new ArrayList<>();
-        CountryDTO dto;
         for (Country country : countries){
-            dto = modelmapper.map(country,CountryDTO.class);
-            rtn.add(dto);
+            rtn.add(new CountryDTO(country));
         }
         return rtn;
     }
@@ -41,7 +31,7 @@ public class CountryController {
     @GetMapping(value = "/{id}",produces = "application/json")
     public CountryDTO getCountryById(@PathVariable("id") Long id){
         Country country = countryService.getById(id);
-        CountryDTO rtn = modelmapper.map(country,CountryDTO.class);
+        CountryDTO rtn = new CountryDTO(country);
         return rtn;
     }
 

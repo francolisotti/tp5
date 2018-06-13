@@ -1,16 +1,9 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.PriceDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.utn.tp5.service.PriceService;
-=======
-import com.utn.tp5.Service.PriceService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.PriceService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Price;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +11,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
+@AllArgsConstructor
 
 @RestController
 @RequestMapping("/price")
@@ -32,10 +25,8 @@ public class PriceController {
         List<Price> prices = priceService.getAll();
 
         List<PriceDTO> rtn = new ArrayList<>();
-        PriceDTO dto;
         for (Price price : prices){
-            dto = modelmapper.map(price,PriceDTO.class);
-            rtn.add(dto);
+            rtn.add(new PriceDTO(price));
         }
         return rtn;
     }
@@ -43,7 +34,7 @@ public class PriceController {
     @GetMapping(value = "/{id}",produces = "application/json")
     public PriceDTO getPriceById(@PathVariable("id") Long id){
         Price price = priceService.getById(id);
-        PriceDTO rtn = modelmapper.map(price,PriceDTO.class);
+        PriceDTO rtn = new PriceDTO(price);
         return rtn;
     }
 

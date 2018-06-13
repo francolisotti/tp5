@@ -1,4 +1,4 @@
-package com.utn.tp5.Service;
+package com.utn.tp5.service;
 
 import com.utn.tp5.Persistence.CountryPersistence;
 import com.utn.tp5.model.Country;

@@ -1,28 +1,19 @@
 package com.utn.tp5.controllers;
 
-import com.utn.tp5.DTO.CityDTO;
 import com.utn.tp5.DTO.RouteDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import com.utn.tp5.service.AirportService;
 import com.utn.tp5.service.RouteService;
-=======
-import com.utn.tp5.Service.AirportService;
-import com.utn.tp5.Service.RouteService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.AirportService;
-import com.utn.tp5.Service.RouteService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.Route;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
+@AllArgsConstructor
 
 @RestController
 @RequestMapping("/route")
@@ -37,10 +28,8 @@ public class RouteController {
     public List<RouteDTO> listRoutes() {
         List<Route> routes = routeService.getAll();
         List<RouteDTO> rtn = new ArrayList<>();
-        RouteDTO dto;
         for (Route route: routes){
-            dto = modelmapper.map(route,RouteDTO.class);
-            rtn.add(dto);
+            rtn.add(new RouteDTO(route));
         }
         return rtn;
     }
@@ -48,7 +37,7 @@ public class RouteController {
     @GetMapping(value = "/{id}",produces = "application/json")
     public RouteDTO getRouteById(@PathVariable("id") Long id){
         Route route = routeService.getById(id);
-        RouteDTO rtn = modelmapper.map(route,RouteDTO.class);
+        RouteDTO rtn = new RouteDTO(route);
         return rtn;
     }
 

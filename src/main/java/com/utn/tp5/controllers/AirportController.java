@@ -1,28 +1,18 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.AirportDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.utn.tp5.service.AirportService;
 import com.utn.tp5.service.CityService;
-=======
-import com.utn.tp5.Service.AirportService;
-import com.utn.tp5.Service.CityService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.AirportService;
-import com.utn.tp5.Service.CityService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.City;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/airport")
 public class AirportController {
@@ -31,15 +21,12 @@ public class AirportController {
     AirportService airportService;
     @Autowired
     CityService cityService;
-
     @GetMapping(value = "/", produces = "application/json")
     public List<AirportDTO> listAirports() {
        List<Airport> airports = airportService.getAll();
        List<AirportDTO> rtn = new ArrayList<>();
-       AirportDTO dto;
        for (Airport airport : airports){
-           dto = modelmapper.map(airport,AirportDTO.class);
-           rtn.add(dto);
+           rtn.add(new AirportDTO(airport));
        }
        return rtn;
     }
@@ -47,7 +34,7 @@ public class AirportController {
     @GetMapping(value = "/{id}",produces = "application/json")
     public AirportDTO getAirportById(@PathVariable("id") Long id){
         Airport airport = airportService.getById(id);
-        AirportDTO rtn = modelmapper.map(airport,AirportDTO.class);
+        AirportDTO rtn = new AirportDTO(airport);
         return rtn;
     }
 
@@ -59,8 +46,8 @@ public class AirportController {
     }
 
     @PutMapping(value = "/modify")
-    public void modifyById(@RequestBody Airport airport){
-        airportService.updateByIata(airport);
+    public void modifyById(@RequestBody Airport airport, Long id){
+        airportService.updateAirport(airport, id);
     }
 
     @DeleteMapping(value = "/delete/{name}")

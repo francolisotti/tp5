@@ -1,24 +1,16 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CabinDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.utn.tp5.service.CabinService;
-=======
-import com.utn.tp5.Service.CabinService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.CabinService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Cabin;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping(value = "/cabin")
 public class CabinController {
@@ -29,10 +21,8 @@ public class CabinController {
     public List<CabinDTO> listCabins() {
         List<Cabin> cabins = cabinService.getAll();
         List<CabinDTO> rtn = new ArrayList<>();
-        CabinDTO dto;
         for (Cabin cabin : cabins){
-            dto = modelmapper.map(cabin,CabinDTO.class);
-            rtn.add(dto);
+            rtn.add(new CabinDTO(cabin));
         }
         return rtn;
     }
@@ -40,7 +30,7 @@ public class CabinController {
     @GetMapping(value = "/{id}",produces = "application/json")
     public CabinDTO getCabinById(@PathVariable("id") Long id){
         Cabin cabin = cabinService.getById(id);
-        CabinDTO rtn = modelmapper.map(cabin,CabinDTO.class);
+        CabinDTO rtn = new CabinDTO(cabin);
         return rtn;
     }
 
@@ -51,7 +41,7 @@ public class CabinController {
     }
 
     @DeleteMapping(value = "/delete/{name}")
-    public void deleteCountry(@PathVariable("name") String name){
+    public void deleteCabin(@PathVariable("name") String name){
         cabinService.deleteCabin(name);
     }
 }

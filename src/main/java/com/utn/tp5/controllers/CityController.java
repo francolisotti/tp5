@@ -1,24 +1,17 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CityDTO;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.utn.tp5.service.CityService;
-=======
-import com.utn.tp5.Service.CityService;
->>>>>>> parent of 9056e30... Tests
-=======
-import com.utn.tp5.Service.CityService;
->>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
+import com.utn.tp5.service.CityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.tp5.Tp5Application.modelmapper;
+@AllArgsConstructor
 
 @RestController
 @RequestMapping("/city")
@@ -31,10 +24,8 @@ public class CityController {
     public List<CityDTO> listCities() {
         List<City> cities = cityService.getAll();
         List<CityDTO> rtn = new ArrayList<>();
-        CityDTO dto;
         for (City city : cities){
-            dto = modelmapper.map(city,CityDTO.class);
-            rtn.add(dto);
+            rtn.add(new CityDTO(city));
         }
         return rtn;
     }
@@ -42,7 +33,7 @@ public class CityController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public CityDTO getCityById (@PathVariable("id") Long id){
         City city = cityService.getById(id);
-        CityDTO rtn = modelmapper.map(city,CityDTO.class);
+        CityDTO rtn = new CityDTO(city);
         return rtn;
     }
 
