@@ -1,7 +1,11 @@
 package com.utn.tp5.Service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.utn.tp5.persistence.CabinPersistence;
+=======
+import com.utn.tp5.Persistence.CabinPersistence;
+>>>>>>> parent of 9056e30... Tests
 =======
 import com.utn.tp5.Persistence.CabinPersistence;
 >>>>>>> parent of 9056e30... Tests

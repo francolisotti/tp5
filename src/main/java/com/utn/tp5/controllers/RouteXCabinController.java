@@ -2,15 +2,21 @@ package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.RouteXCabinDTO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.utn.tp5.service.CabinService;
 import com.utn.tp5.service.PriceService;
 import com.utn.tp5.service.RouteService;
 import com.utn.tp5.service.RouteXCabinService;
 =======
+=======
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.Service.CabinService;
 import com.utn.tp5.Service.PriceService;
 import com.utn.tp5.Service.RouteService;
 import com.utn.tp5.Service.RouteXCabinService;
+<<<<<<< HEAD
+>>>>>>> parent of 9056e30... Tests
+=======
 >>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Cabin;
 import com.utn.tp5.model.Price;
@@ -24,8 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @AllArgsConstructor @RestController @RequestMapping("/routeXCabin")
 =======
+=======
+>>>>>>> parent of 9056e30... Tests
 import static com.utn.tp5.Tp5Application.modelmapper;
 
 @RestController

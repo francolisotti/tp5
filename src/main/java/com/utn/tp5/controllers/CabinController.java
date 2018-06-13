@@ -2,7 +2,11 @@ package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CabinDTO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.utn.tp5.service.CabinService;
+=======
+import com.utn.tp5.Service.CabinService;
+>>>>>>> parent of 9056e30... Tests
 =======
 import com.utn.tp5.Service.CabinService;
 >>>>>>> parent of 9056e30... Tests
