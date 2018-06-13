@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
 @Setter
 @Entity
 @NoArgsConstructor
@@ -36,5 +35,17 @@ public class City {
 
     public String getName(){
         return this.name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getIata() {
+        return iata;
+    }
+
+    public Country getCountry() {
+        return country;
     }
 }
