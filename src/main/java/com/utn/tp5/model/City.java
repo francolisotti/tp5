@@ -1,6 +1,4 @@
 package com.utn.tp5.model;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,5 +32,9 @@ public class City {
         this.name=name;
         this.iata=iata;
         this.country=country;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }
