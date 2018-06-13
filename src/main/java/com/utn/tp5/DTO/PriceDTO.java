@@ -9,7 +9,6 @@ import java.sql.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class PriceDTO {
 
     private int price;
