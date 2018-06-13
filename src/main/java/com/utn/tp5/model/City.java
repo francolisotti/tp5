@@ -1,10 +1,13 @@
 package com.utn.tp5.model;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
 @Setter
 @Entity
 @NoArgsConstructor
@@ -31,21 +34,5 @@ public class City {
         this.name=name;
         this.iata=iata;
         this.country=country;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getIata() {
-        return iata;
-    }
-
-    public Country getCountry() {
-        return country;
     }
 }

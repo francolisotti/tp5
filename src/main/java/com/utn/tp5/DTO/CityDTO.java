@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
 @Setter
 public class CityDTO {
 
@@ -16,13 +17,5 @@ public class CityDTO {
         this.iata=city.getIata();
         this.name=city.getName();
         this.country= new CountryDTO(city.getCountry());
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public CountryDTO getCountry() {
-        return country;
     }
 }
