@@ -1,18 +1,16 @@
 package com.utn.tp5.controllers;
 
+import com.utn.tp5.model.*;
 import com.utn.tp5.service.CabinService;
 import com.utn.tp5.DTO.RouteXCabinDTO;
 import com.utn.tp5.service.PriceService;
 import com.utn.tp5.service.RouteService;
 import com.utn.tp5.service.RouteXCabinService;
-import com.utn.tp5.model.Cabin;
-import com.utn.tp5.model.Price;
-import com.utn.tp5.model.Route;
-import com.utn.tp5.model.RouteXCabin;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,8 @@ public class RouteXCabinControllerTest {
     private Cabin cabin;
     private Route route;
     private Price price;
+    private Airport origin;
+    private Airport destination;
 
     @Before
     public void contextLoads(){
@@ -40,9 +40,15 @@ public class RouteXCabinControllerTest {
         this.cabinService = mock(CabinService.class);
         this.priceService = mock(PriceService.class);
         this.routeXCabinController = new RouteXCabinController(routeXCabinService,routeService,cabinService,priceService);
-        this.cabin = mock(Cabin.class);
-        this.route = mock(Route.class);
-        this.price = mock(Price.class);
+
+        this.cabin = new Cabin("Example");
+
+        this.origin = new Airport("Example","Exa",new City("Example","Exa",new Country("Example","Exa")),1010,0101);
+        this.destination = new Airport("Example2","Exa2",new City("Example2","Exa2",new Country("Example2","Exa2")),5050,0505);
+        this.route = new Route(1234,this.origin,this.destination);
+
+        this.price = new Price(1234,mock(Date.class));
+
         this.routeXCabin = new RouteXCabin(this.cabin,this.route,this.price);
         this.routeXCabin.setId((long)1);
         when(this.routeXCabinService.getById((long)1)).thenReturn(this.routeXCabin);

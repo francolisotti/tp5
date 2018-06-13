@@ -8,7 +8,6 @@ import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.City;
 import org.junit.Before;
 import org.junit.Test;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;

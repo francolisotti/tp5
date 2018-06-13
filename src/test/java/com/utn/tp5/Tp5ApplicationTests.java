@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class Tp5ApplicationTests {
 
 	@Test
-	public void contextLoads() {
+	public void contextLoads() {Tp5Application.main(new String[]{});
 	}
 
 }
