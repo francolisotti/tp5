@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class CityDTO {
 
@@ -21,5 +20,9 @@ public class CityDTO {
 
     public String getName(){
         return this.name;
+    }
+
+    public CountryDTO getCountry() {
+        return country;
     }
 }
