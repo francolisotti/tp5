@@ -18,4 +18,8 @@ public class CityDTO {
         this.name=city.getName();
         this.country= new CountryDTO(city.getCountry());
     }
+
+    public String getName(){
+        return this.name;
+    }
 }
