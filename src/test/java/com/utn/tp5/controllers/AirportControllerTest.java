@@ -48,7 +48,7 @@ public class AirportControllerTest {
         for (Airport airport : airports){
             DTOList.add(new AirportDTO(airport));
         }
-        assertEquals(airports.get(0),DTOList.get(0));
+        assertEquals(airports.get(0).getName(),DTOList.get(0).getName());
     }
 
     @Test
