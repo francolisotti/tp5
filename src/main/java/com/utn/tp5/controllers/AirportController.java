@@ -1,19 +1,23 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.AirportDTO;
+<<<<<<< HEAD
 import com.utn.tp5.service.AirportService;
 import com.utn.tp5.service.CityService;
+=======
+import com.utn.tp5.Service.AirportService;
+import com.utn.tp5.Service.CityService;
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.City;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+import static com.utn.tp5.Tp5Application.modelmapper;
+
 @RestController
 @RequestMapping("/airport")
 public class AirportController {
@@ -22,14 +26,15 @@ public class AirportController {
     AirportService airportService;
     @Autowired
     CityService cityService;
-    ModelMapper modelmapper;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<AirportDTO> listAirports() {
        List<Airport> airports = airportService.getAll();
        List<AirportDTO> rtn = new ArrayList<>();
+       AirportDTO dto;
        for (Airport airport : airports){
-           rtn.add(modelmapper.map(airport,AirportDTO.class));
+           dto = modelmapper.map(airport,AirportDTO.class);
+           rtn.add(dto);
        }
        return rtn;
     }
@@ -49,8 +54,8 @@ public class AirportController {
     }
 
     @PutMapping(value = "/modify")
-    public void modifyById(@RequestBody Airport airport, Long id){
-        airportService.updateAirport(airport, id);
+    public void modifyById(@RequestBody Airport airport){
+        airportService.updateByIata(airport);
     }
 
     @DeleteMapping(value = "/delete/{name}")

@@ -1,19 +1,24 @@
 package com.utn.tp5.controllers;
 
+import com.utn.tp5.DTO.CityDTO;
 import com.utn.tp5.DTO.RouteDTO;
+<<<<<<< HEAD
 import com.utn.tp5.service.AirportService;
 import com.utn.tp5.service.RouteService;
+=======
+import com.utn.tp5.Service.AirportService;
+import com.utn.tp5.Service.RouteService;
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.Route;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+import static com.utn.tp5.Tp5Application.modelmapper;
+
 @RestController
 @RequestMapping("/route")
 public class RouteController {
@@ -22,7 +27,6 @@ public class RouteController {
     RouteService routeService;
     @Autowired
     AirportService airportService;
-    ModelMapper modelmapper;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<RouteDTO> listRoutes() {

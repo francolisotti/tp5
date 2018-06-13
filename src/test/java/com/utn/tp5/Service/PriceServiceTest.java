@@ -1,6 +1,10 @@
-package com.utn.tp5.service;
+package com.utn.tp5.Service;
 
+<<<<<<< HEAD
 import com.utn.tp5.persistence.PricePersistence;
+=======
+import com.utn.tp5.Persistence.PricePersistence;
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Price;
 import org.junit.Before;
 import org.junit.Test;

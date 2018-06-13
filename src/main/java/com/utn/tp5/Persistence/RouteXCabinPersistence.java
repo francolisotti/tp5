@@ -1,4 +1,4 @@
-package com.utn.tp5.persistence;
+package com.utn.tp5.Persistence;
 
 import com.utn.tp5.model.RouteXCabin;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,24 +1,26 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CountryDTO;
+<<<<<<< HEAD
 import com.utn.tp5.service.CountryService;
+=======
+import com.utn.tp5.Service.CountryService;
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Country;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+import static com.utn.tp5.Tp5Application.modelmapper;
+
 @RestController
 @RequestMapping("/country")
 public class CountryController {
 
     @Autowired
     CountryService countryService;
-    ModelMapper modelmapper;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<CountryDTO> listCountries() {

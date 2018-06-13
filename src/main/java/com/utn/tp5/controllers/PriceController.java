@@ -1,10 +1,12 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.PriceDTO;
+<<<<<<< HEAD
 import com.utn.tp5.service.PriceService;
+=======
+import com.utn.tp5.Service.PriceService;
+>>>>>>> parent of 9056e30... Tests
 import com.utn.tp5.model.Price;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +14,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+import static com.utn.tp5.Tp5Application.modelmapper;
+
 @RestController
 @RequestMapping("/price")
 public class PriceController {
 
     @Autowired
     PriceService priceService;
-    ModelMapper modelmapper;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<PriceDTO> listPrices() {
