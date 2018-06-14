@@ -88,8 +88,6 @@
 			<scope>system</scope>
 			<systemPath>E:/Users/Franco/Desktop/tp5modelandDTO/target/tp5modelandDTO-1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
-
-
 	</dependencies>
 
 	<build>
