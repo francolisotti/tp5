@@ -1,4 +1,4 @@
-package com.utn.tp5.service;
+package com.utn.tp5.serviceee;
 
 import com.utn.tp5.model.RouteXCabin;
 import lombok.AllArgsConstructor;

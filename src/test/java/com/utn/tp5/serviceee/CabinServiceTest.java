@@ -1,8 +1,7 @@
-package com.utn.tp5.service;
+package com.utn.tp5.serviceee;
 
 import com.utn.tp5.Persistence.CabinPersistence;
 import com.utn.tp5.model.Cabin;
-import com.utn.tp5.service.CabinService;
 import org.junit.Before;
 import org.junit.Test;
 
