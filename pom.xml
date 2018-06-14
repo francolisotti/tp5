@@ -86,7 +86,7 @@
 			<artifactId>tp5modelandDTO</artifactId>
 			<version>1.0-S</version>
 			<scope>system</scope>
-			<systemPath>E:/Users/Franco/Desktop/tp5modelandDTO/target/tp5modelandDTO-1.0-SNAPSHOT.jar</systemPath>
+			<systemPath>${basedir}/tp5modelandDTO-1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 	</dependencies>
 
