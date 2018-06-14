@@ -1,4 +1,4 @@
-package com.utn.tp5.serviceee;
+package com.utn.tp5.service;
 
 import com.utn.tp5.Persistence.RoutePersistence;
 import com.utn.tp5.model.Route;

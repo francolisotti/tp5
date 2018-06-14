@@ -1,11 +1,11 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.model.*;
-import com.utn.tp5.serviceee.CabinService;
+import com.utn.tp5.service.CabinService;
 import com.utn.tp5.DTO.RouteXCabinDTO;
-import com.utn.tp5.serviceee.PriceService;
-import com.utn.tp5.serviceee.RouteService;
-import com.utn.tp5.serviceee.RouteXCabinService;
+import com.utn.tp5.service.PriceService;
+import com.utn.tp5.service.RouteService;
+import com.utn.tp5.service.RouteXCabinService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

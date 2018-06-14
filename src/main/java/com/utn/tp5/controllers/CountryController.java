@@ -1,7 +1,7 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.DTO.CountryDTO;
-import com.utn.tp5.serviceee.CountryService;
+import com.utn.tp5.service.CountryService;
 import com.utn.tp5.model.Country;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

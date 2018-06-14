@@ -1,6 +1,6 @@
 package com.utn.tp5.controllers;
 
-import com.utn.tp5.serviceee.CabinService;
+import com.utn.tp5.service.CabinService;
 import com.utn.tp5.DTO.CabinDTO;
 import com.utn.tp5.model.Cabin;
 import org.junit.Before;

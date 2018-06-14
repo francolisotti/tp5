@@ -3,7 +3,7 @@ package com.utn.tp5.controllers;
 import com.utn.tp5.DTO.CityDTO;
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
-import com.utn.tp5.serviceee.CityService;
+import com.utn.tp5.service.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

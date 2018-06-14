@@ -2,9 +2,9 @@ package com.utn.tp5.controllers;
 
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
-import com.utn.tp5.serviceee.AirportService;
+import com.utn.tp5.service.AirportService;
 import com.utn.tp5.DTO.RouteDTO;
-import com.utn.tp5.serviceee.RouteService;
+import com.utn.tp5.service.RouteService;
 import com.utn.tp5.model.Airport;
 import com.utn.tp5.model.Route;
 import org.junit.Before;
