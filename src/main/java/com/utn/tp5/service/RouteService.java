@@ -1,5 +1,6 @@
 package com.utn.tp5.service;
 
+import com.utn.tp5.model.Airport;
 import com.utn.tp5.persistence.RoutePersistence;
 import com.utn.tp5.model.Route;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,10 @@ public class RouteService {
 
     public Route getById(Long id) {
         return routePersistence.getOne(id);
+    }
+
+    public List<Route> getByOrigin(Airport airport){
+        return routePersistence.getByOrigin(airport);
     }
 
     public boolean saveRoute(Route r) {

@@ -26,6 +26,10 @@ public class AirportService {
         return airportPersistence.getOne(id);
     }
 
+    public Airport getByIata(String name) {
+        return airportPersistence.getByIata(name);
+    }
+
     public Boolean saveAirport(Airport a) {
         Airport saved = airportPersistence.save(a);
         boolean rtn = false;

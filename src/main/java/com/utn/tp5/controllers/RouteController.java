@@ -34,10 +34,14 @@ public class RouteController {
         return rtn;
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public RouteDTO getRouteById(@PathVariable("id") Long id) {
-        Route route = routeService.getById(id);
-        RouteDTO rtn = new RouteDTO(route);
+    @GetMapping(value = "/{iata}", produces = "application/json")
+    public List<RouteDTO> getRouteByOrigin(@PathVariable("iata") String iata) {
+        Airport airport = airportService.getByIata(iata);
+        List<RouteDTO> rtn = new ArrayList<>();
+        List<Route> routes = routeService.getByOrigin(airport);
+        for (Route route: routes) {
+            rtn.add(new RouteDTO(route));
+        }
         return rtn;
     }
 
