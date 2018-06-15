@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.CountryPersistence;
+import com.utn.tp5.persistence.CountryPersistence;
 import com.utn.tp5.model.Country;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,40 +19,40 @@ public class CountryServiceTest {
     private Country country;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         countryPersistence = mock(CountryPersistence.class);
         this.countryService = new CountryService(countryPersistence);
         this.country = mock(Country.class);
     }
 
     @Test
-    public void whenTheCountryListIsAsked(){
+    public void whenTheCountryListIsAsked() {
         List<Country> expected = new ArrayList<>();
         when(countryPersistence.findAll()).thenReturn(expected);
         List<Country> countries = this.countryService.getAll();
-        assertEquals(countries,expected);
+        assertEquals(countries, expected);
     }
 
     @Test
-    public void whenACountryIsAskedById(){
+    public void whenACountryIsAskedById() {
         when(countryPersistence.getOne(this.country.getId())).thenReturn(this.country);
         Country c = this.countryService.getById(this.country.getId());
-        assertEquals(this.country,c);
+        assertEquals(this.country, c);
     }
 
     @Test
-    public void whenACountryIsSaved(){
+    public void whenACountryIsSaved() {
         when(countryPersistence.save(this.country)).thenReturn(this.country);
         Boolean res = this.countryService.saveCountry(this.country);
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
     
     @Test
-    public void whenACountryIsDeleted(){
+    public void whenACountryIsDeleted() {
         when(countryPersistence.save(this.country)).thenReturn(this.country);
         this.countryService.saveCountry(this.country);
         when(countryPersistence.deleteByName(this.country.getName())).thenReturn(true);
         Boolean res = this.countryService.deleteCountry(this.country.getName());
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 }

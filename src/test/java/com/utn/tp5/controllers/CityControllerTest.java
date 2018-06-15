@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -50,15 +51,18 @@ public class CityControllerTest {
     public void whenACityIsAskedById(){
         CityDTO a = cityController.getCityById(this.city.getId());
         CityDTO b = new CityDTO(this.city);
-        assertEquals(a.getName(),b.getName());
+        assertEquals(a.getName(), b.getName());
     }
 
     @Test
     public void whenACityIsAdded(){
+        /*this.cityService.saveCity(this.city);
+        verify(this.cityService).saveCity(this.city);*/
     }
 
     @Test
     public void whenACityIsDeleted(){
-
+        this.cityController.deleteCity(this.city.getName());
+        verify(this.cityService).deleteCity(this.city.getName());
     }
 }

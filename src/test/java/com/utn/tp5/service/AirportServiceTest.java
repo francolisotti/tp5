@@ -1,7 +1,7 @@
 package com.utn.tp5.service;
 
 
-import com.utn.tp5.Persistence.AirportPersistence;
+import com.utn.tp5.persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AirportServiceTest {
@@ -20,45 +21,47 @@ public class AirportServiceTest {
     private AirportPersistence airportPersistence;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.airportPersistence = mock(AirportPersistence.class);
         this.airportService = new AirportService(airportPersistence);
         this.airport = mock(Airport.class);
-    }
-
-    @Test
-    public void whenAnAirportIsSaved(){
         when(airportPersistence.save(this.airport)).thenReturn(this.airport);
-        Boolean res = this.airportService.saveAirport(this.airport);
-        assertEquals(Boolean.TRUE,res);
     }
 
     @Test
-    public void whenAnAirportIsDeleted(){
+    public void whenAnAirportIsSaved() {
+        Boolean res = this.airportService.saveAirport(this.airport);
+        assertEquals(Boolean.TRUE, res);
+    }
+
+    @Test
+    public void whenAnAirportIsDeleted() {
         when(airportPersistence.save(this.airport)).thenReturn(this.airport);
         when(airportPersistence.deleteByName(this.airport.getName())).thenReturn(true);
         this.airportService.saveAirport(this.airport);
         Boolean res = this.airportService.deleteAirport(this.airport.getName());
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
     @Test
-    public void whenAnAirportIsAskedById(){
+    public void whenAnAirportIsAskedById() {
         when(airportPersistence.getOne(this.airport.getId())).thenReturn(this.airport);
         Airport c = this.airportService.getById(this.airport.getId());
-        assertEquals(this.airport,c);
+        assertEquals(this.airport, c);
     }
 
     @Test
-    public void whenTheAirportListIsAsked(){
+    public void whenTheAirportListIsAsked() {
         List<Airport> expected = new ArrayList<>();
         when(airportPersistence.findAll()).thenReturn(expected);
         List<Airport> cities = this.airportService.getAll();
-        assertEquals(cities,expected);
+        assertEquals(cities, expected);
     }
 
     @Test
-    public void whenAnAirportIsModified(){
-        //preguntar a saucorp
+    public void whenAnAirportIsModified() {
+        this.airport.setName("Example");
+        this.airportService.updateAirport(this.airport, this.airport.getId());
+        verify(this.airportPersistence).save(this.airport);
     }
 }

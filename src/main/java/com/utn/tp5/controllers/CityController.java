@@ -24,27 +24,27 @@ public class CityController {
     public List<CityDTO> listCities() {
         List<City> cities = cityService.getAll();
         List<CityDTO> rtn = new ArrayList<>();
-        for (City city : cities){
+        for (City city : cities) {
             rtn.add(new CityDTO(city));
         }
         return rtn;
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public CityDTO getCityById (@PathVariable("id") Long id){
+    public CityDTO getCityById(@PathVariable("id") Long id) {
         City city = cityService.getById(id);
         CityDTO rtn = new CityDTO(city);
         return rtn;
     }
 
     @GetMapping(value = "/create")
-    public void createCity(String name, String iata, Country country){
-        City c = new City (name,iata,country);
+    public void createCity(String name, String iata, Country country) {
+        City c = new City(name, iata, country);
         cityService.saveCity(c);
     }
 
     @DeleteMapping(value = "/delete/{name}")
-    public void deleteCity(@PathVariable("name") String name){
+    public void deleteCity(@PathVariable("name") String name) {
         cityService.deleteCity(name);
     }
 }

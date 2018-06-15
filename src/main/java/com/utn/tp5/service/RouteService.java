@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.RoutePersistence;
+import com.utn.tp5.persistence.RoutePersistence;
 import com.utn.tp5.model.Route;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +16,21 @@ import java.util.List;
 public class RouteService {
 
     @Autowired
-    RoutePersistence routePersistence;
+    private RoutePersistence routePersistence;
 
-    public List<Route> getAll(){
+    public List<Route> getAll() {
         return routePersistence.findAll();
     }
 
-    public Route getById(Long id){
+    public Route getById(Long id) {
         return routePersistence.getOne(id);
     }
 
-    public boolean saveRoute(Route r){
+    public boolean saveRoute(Route r) {
         Route saved = routePersistence.save(r);
         boolean rtn = false;
-        if (saved.equals(r)){
-            rtn=true;
+        if (saved.equals(r)) {
+            rtn = true;
         }
         return rtn;
     }

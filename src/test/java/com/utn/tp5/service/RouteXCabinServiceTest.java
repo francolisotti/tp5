@@ -1,5 +1,8 @@
 package com.utn.tp5.service;
-import com.utn.tp5.Persistence.RouteXCabinPersistence;
+import com.utn.tp5.model.Cabin;
+import com.utn.tp5.model.Price;
+import com.utn.tp5.model.Route;
+import com.utn.tp5.persistence.RouteXCabinPersistence;
 import com.utn.tp5.model.RouteXCabin;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,38 +19,40 @@ public class RouteXCabinServiceTest {
     private RouteXCabinPersistence routeXCabinPersistence;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.routeXCabinPersistence = mock(RouteXCabinPersistence.class);
         this.routeXCabinService = new RouteXCabinService(routeXCabinPersistence);
-        this.routeXCabin = mock(RouteXCabin.class);
-    }
-
-    @Test
-    public void whenARouteXCabinIsSaved(){
+        this.routeXCabin = new RouteXCabin(mock(Cabin.class), mock(Route.class), mock(Price.class));
         when(routeXCabinPersistence.save(this.routeXCabin)).thenReturn(this.routeXCabin);
+    }
+
+    @Test
+    public void whenARouteXCabinIsSaved() {
         Boolean res = this.routeXCabinService.saveRouteXCabin(this.routeXCabin);
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
 
     @Test
-    public void whenARouteXCabinIsAskedById(){
+    public void whenARouteXCabinIsAskedById() {
         when(routeXCabinPersistence.getOne(this.routeXCabin.getId())).thenReturn(this.routeXCabin);
         RouteXCabin c = this.routeXCabinService.getById(this.routeXCabin.getId());
-        assertEquals(this.routeXCabin,c);
+        assertEquals(this.routeXCabin, c);
     }
 
     @Test
-    public void whenTheRouteXCabinListIsAsked(){
+    public void whenTheRouteXCabinListIsAsked() {
         List<RouteXCabin> expected = new ArrayList<>();
         when(routeXCabinPersistence.findAll()).thenReturn(expected);
         List<RouteXCabin> routeXCabins = this.routeXCabinService.getAll();
-        assertEquals(routeXCabins,expected);
+        assertEquals(routeXCabins, expected);
     }
-    /*
+
     @Test
-    public void whenAnRouteXCabinIsModified(){
-        //preguntar a saucorp
+    public void whenAnRouteXCabinIsModified() {
+        int newPrice = 3210;
+        boolean res = this.routeXCabinService.modifyRouteXCabin(this.routeXCabin, newPrice);
+        assertEquals(Boolean.TRUE, res);
     }
-    */
+
 }

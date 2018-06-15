@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.CabinPersistence;
+import com.utn.tp5.persistence.CabinPersistence;
 import com.utn.tp5.model.Cabin;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,26 +14,26 @@ import java.util.List;
 public class CabinService {
 
     @Autowired
-    CabinPersistence cabinPersistence;
+    private CabinPersistence cabinPersistence;
 
-    public List<Cabin> getAll(){
+    public List<Cabin> getAll() {
         return cabinPersistence.findAll();
     }
 
-    public Cabin getById(Long id){
+    public Cabin getById(Long id) {
         return cabinPersistence.getOne(id);
     }
 
-    public boolean saveCabin(Cabin c){
+    public boolean saveCabin(Cabin c) {
         Cabin saved = cabinPersistence.save(c);
         boolean rtn = false;
-        if (saved.equals(c)){
-            rtn=true;
+        if (saved.equals(c)) {
+            rtn = true;
         }
         return rtn;
     }
 
-    public boolean deleteCabin(String name){
+    public boolean deleteCabin(String name) {
         return cabinPersistence.deleteByName(name);
     }
 }

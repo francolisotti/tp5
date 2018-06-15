@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.RoutePersistence;
+import com.utn.tp5.persistence.RoutePersistence;
 import com.utn.tp5.model.Route;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,32 +19,32 @@ public class RouteServiceTest {
     private RoutePersistence routePersistence;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.routePersistence = mock(RoutePersistence.class);
         this.routeService = new RouteService(routePersistence);
         this.route = mock(Route.class);
     }
 
     @Test
-    public void whenARouteIsSaved(){
+    public void whenARouteIsSaved() {
         when(routePersistence.save(this.route)).thenReturn(this.route);
         Boolean res = this.routeService.saveRoute(this.route);
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
 
     @Test
-    public void whenARouteIsAskedById(){
+    public void whenARouteIsAskedById() {
         when(routePersistence.getOne(this.route.getId())).thenReturn(this.route);
         Route c = this.routeService.getById(this.route.getId());
-        assertEquals(this.route,c);
+        assertEquals(this.route, c);
     }
 
     @Test
-    public void whenTheRouteListIsAsked(){
+    public void whenTheRouteListIsAsked() {
         List<Route> expected = new ArrayList<>();
         when(routePersistence.findAll()).thenReturn(expected);
         List<Route> routes = this.routeService.getAll();
-        assertEquals(routes,expected);
+        assertEquals(routes, expected);
     }
 }

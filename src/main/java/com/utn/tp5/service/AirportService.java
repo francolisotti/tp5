@@ -1,7 +1,7 @@
 package com.utn.tp5.service;
 
 
-import com.utn.tp5.Persistence.AirportPersistence;
+import com.utn.tp5.persistence.AirportPersistence;
 import com.utn.tp5.model.Airport;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +16,29 @@ import java.util.List;
 public class AirportService {
 
     @Autowired
-    AirportPersistence airportPersistence;
+    private AirportPersistence airportPersistence;
 
-    public List<Airport> getAll(){
+    public List<Airport> getAll() {
         return airportPersistence.findAll();
     }
 
-    public Airport getById(Long id){
+    public Airport getById(Long id) {
         return airportPersistence.getOne(id);
     }
 
-    public Boolean saveAirport(Airport a){
+    public Boolean saveAirport(Airport a) {
         Airport saved = airportPersistence.save(a);
         boolean rtn = false;
-        if (saved.equals(a)){
-            rtn=true;
+        if (saved.equals(a)) {
+            rtn = true;
         }
         return rtn;
     }
 
-    public boolean deleteAirport(String name){
+    public boolean deleteAirport(String name) {
         return airportPersistence.deleteByName(name);
     }
-    public boolean updateAirport(Airport airport, long id){
+    public boolean updateAirport(Airport airport, long id) {
         airport.setId(id);
         return this.saveAirport(airport);
     }

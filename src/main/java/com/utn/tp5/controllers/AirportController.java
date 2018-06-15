@@ -18,40 +18,40 @@ import java.util.List;
 public class AirportController {
 
     @Autowired
-    AirportService airportService;
+    private AirportService airportService;
     @Autowired
-    CityService cityService;
+    private CityService cityService;
     @GetMapping(value = "/", produces = "application/json")
     public List<AirportDTO> listAirports() {
        List<Airport> airports = airportService.getAll();
        List<AirportDTO> rtn = new ArrayList<>();
-       for (Airport airport : airports){
+       for (Airport airport : airports) {
            rtn.add(new AirportDTO(airport));
        }
        return rtn;
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
-    public AirportDTO getAirportById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public AirportDTO getAirportById(@PathVariable("id") Long id) {
         Airport airport = airportService.getById(id);
         AirportDTO rtn = new AirportDTO(airport);
         return rtn;
     }
 
     @PostMapping(value = "/create")
-    public void createAirport(String name, String iata, Long id_city, float latitude, float longitude){
+    public void createAirport(String name, String iata, long id_city, float latitude, float longitude) {
         City city = cityService.getById(id_city);
-        Airport a = new Airport (name,iata,city,latitude,longitude);
+        Airport a = new Airport(name, iata, city, latitude, longitude);
         airportService.saveAirport(a);
     }
 
     @PutMapping(value = "/modify")
-    public void modifyById(@RequestBody Airport airport, Long id){
+    public void modifyById(@RequestBody Airport airport, Long id) {
         airportService.updateAirport(airport, id);
     }
 
     @DeleteMapping(value = "/delete/{name}")
-    public void deleteAirport(@PathVariable("name") String name){
+    public void deleteAirport(@PathVariable("name") String name) {
         airportService.deleteAirport(name);
     }
 

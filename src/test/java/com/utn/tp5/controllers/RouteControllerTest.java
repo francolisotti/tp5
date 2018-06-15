@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -27,43 +28,46 @@ public class RouteControllerTest {
     private Airport destination;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.routeService = mock(RouteService.class);
         this.airportService = mock(AirportService.class);
-        this.routeController = new RouteController(this.routeService,this.airportService);
-        this.origin = new Airport("Example","Exa",new City("Example","Exa",new Country("Example","Exa")),1010,0101);
-        this.destination = new Airport("Example2","Exa2",new City("Example2","Exa2",new Country("Example2","Exa2")),5050,0505);
-        this.route = new Route(1234,this.origin,this.destination);
-        this.route.setId((long)1);
-        when(this.routeService.getById((long)1)).thenReturn(this.route);
+        this.routeController = new RouteController(this.routeService, this.airportService);
+        this.origin = new Airport("Example", "Exa", new City("Example", "Exa", new Country("Example", "Exa")), 1010, 0101);
+        this.destination = new Airport("Example2", "Exa2", new City("Example2", "Exa2", new Country("Example2", "Exa2")),5050, 0505);
+        this.route = new Route(1234,this.origin, this.destination);
+        this.route.setId((long) 1);
+        when(this.routeService.getById((long) 1)).thenReturn(this.route);
         when(this.routeService.saveRoute(this.route)).thenReturn(true);
     }
 
     @Test
-    public void whenRouteListIsAsked(){
+    public void whenRouteListIsAsked() {
         List<Route> routes = new ArrayList<>();
         routes.add(this.route);
         when(this.routeService.getAll()).thenReturn(routes);
         List<RouteDTO> DTOList = routeController.listRoutes();
-        for (Route route : routes){
+        for (Route route : routes) {
             DTOList.add(new RouteDTO(route));
         }
-        assertEquals(routes.get(0).getDistance(),DTOList.get(0).getDistance(),0.001);
+        assertEquals(routes.get(0).getDistance(), DTOList.get(0).getDistance(),0.001);
     }
 
     @Test
-    public void whenARouteIsAskedById(){
+    public void whenARouteIsAskedById() {
         RouteDTO a = routeController.getRouteById(this.route.getId());
         RouteDTO b = new RouteDTO(this.route);
-        assertEquals(a.getDistance(),b.getDistance(),0.001);
+        assertEquals(a.getDistance(), b.getDistance(),0.001);
     }
 
     @Test
-    public void whenARouteIsAdded(){
+    public void whenARouteIsAdded() {
+        /*this.routeController.createRoute(this.route.getDistance(),this.route.getOrigin().getId(),this.route.getDestination().getId());
+        verify(this.routeService).saveRoute(this.route);*/
     }
 
-    @Test
-    public void whenARouteIsDeleted(){
-
-    }
+    /*@Test
+    public void whenARouteIsDeleted() {
+        this.routeService.deleteRoute(this.country.getName());
+        verify(this.routeService).d(this.country.getName());
+    }*/
 }

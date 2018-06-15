@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
-import com.utn.tp5.Persistence.RouteXCabinPersistence;
+import com.utn.tp5.persistence.RouteXCabinPersistence;
 
 @Service
 @Transactional
@@ -14,26 +14,26 @@ import com.utn.tp5.Persistence.RouteXCabinPersistence;
 public class RouteXCabinService {
 
     @Autowired
-    RouteXCabinPersistence routeXCabinPersistence;
+    private RouteXCabinPersistence routeXCabinPersistence;
 
-    public List<RouteXCabin> getAll(){
+    public List<RouteXCabin> getAll() {
         return routeXCabinPersistence.findAll();
     }
 
-    public RouteXCabin getById(Long id){
+    public RouteXCabin getById(Long id) {
         return routeXCabinPersistence.getOne(id);
     }
 
-    public boolean saveRouteXCabin(RouteXCabin rxc){
+    public boolean saveRouteXCabin(RouteXCabin rxc) {
         RouteXCabin saved = routeXCabinPersistence.save(rxc);
         boolean rtn = false;
-        if (saved.equals(rxc)){
-            rtn=true;
+        if (saved.equals(rxc)) {
+            rtn = true;
         }
         return rtn;
     }
 
-    public boolean modifyRouteXCabin(RouteXCabin routeXCabin, int newPrice){
+    public boolean modifyRouteXCabin(RouteXCabin routeXCabin, int newPrice) {
         routeXCabin.getPrice().setPrice(newPrice);
         return this.saveRouteXCabin(routeXCabin);
     }

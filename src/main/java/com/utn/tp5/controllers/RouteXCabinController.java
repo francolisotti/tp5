@@ -22,42 +22,43 @@ import java.util.List;
 public class RouteXCabinController {
 
     @Autowired
-    RouteXCabinService routeXCabinService;
+    private RouteXCabinService routeXCabinService;
     @Autowired
-    RouteService routeService;
+    private RouteService routeService;
     @Autowired
-    CabinService cabinService;
+    private CabinService cabinService;
     @Autowired
-    PriceService priceService;
+    private PriceService priceService;
+
     @GetMapping(value = "/", produces = "application/json")
     public List<RouteXCabinDTO> listRoutesXCabins() {
         List<RouteXCabin> routeXCabins = routeXCabinService.getAll();
         List<RouteXCabinDTO> rtn = new ArrayList<>();
-        for (RouteXCabin routeXCabin : routeXCabins){
+        for (RouteXCabin routeXCabin : routeXCabins) {
             rtn.add(new RouteXCabinDTO(routeXCabin));
         }
         return rtn;
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
-    public RouteXCabinDTO getRouteXCabinById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public RouteXCabinDTO getRouteXCabinById(@PathVariable("id")Long id) {
         RouteXCabin routeXCabin = routeXCabinService.getById(id);
         RouteXCabinDTO rtn = new RouteXCabinDTO(routeXCabin);
         return rtn;
     }
 
     @PostMapping(value = "/create")
-    public void createRouteXCabin(Long id_cabin, Long id_route, Long id_price){
+    public void createRouteXCabin(Long id_cabin, Long id_route, Long id_price) {
         Cabin cabin = cabinService.getById(id_cabin);
         Route route = routeService.getById(id_route);
         Price price = priceService.getById(id_price);
 
-        RouteXCabin routeXCabin = new RouteXCabin(cabin,route,price);
+        RouteXCabin routeXCabin = new RouteXCabin(cabin, route, price);
         routeXCabinService.saveRouteXCabin(routeXCabin);
     }
 
     @PutMapping(value = "/modify")
-    public void modifyRouteXCabin(Long id_routeXCabin, int newPrice){
+    public void modifyRouteXCabin(Long id_routeXCabin, int newPrice) {
         RouteXCabin routeXCabin = routeXCabinService.getById(id_routeXCabin);
         routeXCabinService.modifyRouteXCabin(routeXCabin, newPrice);
     }

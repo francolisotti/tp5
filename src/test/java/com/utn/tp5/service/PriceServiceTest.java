@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.PricePersistence;
+import com.utn.tp5.persistence.PricePersistence;
 
 import com.utn.tp5.model.Price;
 import org.junit.Before;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class PriceServiceTest {
@@ -19,32 +20,38 @@ public class PriceServiceTest {
     private PricePersistence pricePersistence;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.pricePersistence = mock(PricePersistence.class);
         this.priceService = new PriceService(pricePersistence);
         this.price = mock(Price.class);
+        when(pricePersistence.getOne(this.price.getId())).thenReturn(this.price);
     }
 
     @Test
-    public void whenAPriceIsSaved(){
+    public void whenAPriceIsSaved() {
         when(pricePersistence.save(this.price)).thenReturn(this.price);
         Boolean res = this.priceService.savePrice(this.price);
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
 
     @Test
-    public void whenAPriceIsAskedById(){
-        when(pricePersistence.getOne(this.price.getId())).thenReturn(this.price);
+    public void whenAPriceIsAskedById() {
         Price c = this.priceService.getById(this.price.getId());
-        assertEquals(this.price,c);
+        assertEquals(this.price, c);
     }
 
     @Test
-    public void whenThePriceListIsAsked(){
+    public void whenThePriceListIsAsked() {
         List<Price> expected = new ArrayList<>();
         when(pricePersistence.findAll()).thenReturn(expected);
         List<Price> prices = this.priceService.getAll();
-        assertEquals(prices,expected);
+        assertEquals(prices, expected);
+    }
+
+    @Test
+    public void whenThePriceIsDeleted() {
+        this.priceService.deletePrice(this.price);
+        verify(this.pricePersistence).delete(this.price);
     }
 }

@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.CityPersistence;
+import com.utn.tp5.persistence.CityPersistence;
 import com.utn.tp5.model.City;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +15,26 @@ import java.util.List;
 public class CityService {
 
     @Autowired
-    CityPersistence cityPersistence;
+    private CityPersistence cityPersistence;
 
-    public List<City> getAll(){
+    public List<City> getAll() {
         return cityPersistence.findAll();
     }
 
-    public City getById(Long id){
+    public City getById(Long id) {
         return cityPersistence.getOne(id);
     }
 
-    public boolean saveCity(City c){
+    public boolean saveCity(City c) {
         City saved = cityPersistence.save(c);
         boolean rtn = false;
-        if (saved.equals(c)){
-            rtn=true;
+        if (saved.equals(c)) {
+            rtn = true;
         }
         return rtn;
     }
 
-    public boolean deleteCity(String name){
+    public boolean deleteCity(String name) {
         return cityPersistence.deleteByName(name);
     }
 

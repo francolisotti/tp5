@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -22,17 +23,17 @@ public class CabinControllerTest {
     private Cabin cabin;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.cabinService = mock(CabinService.class);
         this.cabinController = new CabinController(this.cabinService);
         this.cabin = new Cabin("Example");
-        this.cabin.setId((long)1);
-        when(this.cabinService.getById((long)1)).thenReturn(this.cabin);
+        this.cabin.setId((long) 1);
+        when(this.cabinService.getById((long) 1)).thenReturn(this.cabin);
         when(this.cabinService.saveCabin(this.cabin)).thenReturn(true);
     }
 
     @Test
-    public void whenCabinListIsAsked(){
+    public void whenCabinListIsAsked() {
         List<Cabin> cabins = new ArrayList<>();
         cabins.add(this.cabin);
         when(this.cabinService.getAll()).thenReturn(cabins);
@@ -40,22 +41,25 @@ public class CabinControllerTest {
         for (Cabin cabin : cabins){
             DTOList.add(new CabinDTO(cabin));
         }
-        assertEquals(cabins.get(0).getName(),DTOList.get(0).getName());
+        assertEquals(cabins.get(0).getName(), DTOList.get(0).getName());
     }
 
     @Test
-    public void whenACabinIsAskedById(){
+    public void whenACabinIsAskedById() {
         CabinDTO a = cabinController.getCabinById(this.cabin.getId());
         CabinDTO b = new CabinDTO(this.cabin);
-        assertEquals(a.getName(),b.getName());
+        assertEquals(a.getName(), b.getName());
     }
 
     @Test
-    public void whenACabinIsAdded(){
+    public void whenACabinIsAdded() {
+        /*this.cabinService.saveCabin(this.cabin);
+        verify(this.cabinService).saveCabin(this.cabin);*/
     }
 
     @Test
-    public void whenACabinIsDeleted(){
-
+    public void whenACabinIsDeleted() {
+        this.cabinController.deleteCabin(this.cabin.getName());
+        verify(this.cabinService).deleteCabin(this.cabin.getName());
     }
 }

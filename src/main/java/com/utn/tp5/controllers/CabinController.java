@@ -15,33 +15,33 @@ import java.util.List;
 @RequestMapping(value = "/cabin")
 public class CabinController {
     @Autowired
-    CabinService cabinService;
+    private CabinService cabinService;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<CabinDTO> listCabins() {
         List<Cabin> cabins = cabinService.getAll();
         List<CabinDTO> rtn = new ArrayList<>();
-        for (Cabin cabin : cabins){
+        for (Cabin cabin : cabins) {
             rtn.add(new CabinDTO(cabin));
         }
         return rtn;
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
-    public CabinDTO getCabinById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public CabinDTO getCabinById(@PathVariable("id") Long id) {
         Cabin cabin = cabinService.getById(id);
         CabinDTO rtn = new CabinDTO(cabin);
         return rtn;
     }
 
     @GetMapping(value = "/create/{name}")
-    public void createCabin(@PathVariable("name") String name){
-        Cabin cabin = new Cabin (name);
+    public void createCabin(@PathVariable("name")String name) {
+        Cabin cabin = new Cabin(name);
         cabinService.saveCabin(cabin);
     }
 
     @DeleteMapping(value = "/delete/{name}")
-    public void deleteCabin(@PathVariable("name") String name){
+    public void deleteCabin(@PathVariable("name")String name) {
         cabinService.deleteCabin(name);
     }
 }

@@ -16,32 +16,32 @@ import java.util.List;
 public class CountryController {
 
     @Autowired
-    CountryService countryService;
+    private CountryService countryService;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<CountryDTO> listCountries() {
         List<Country> countries = countryService.getAll();
         List<CountryDTO> rtn = new ArrayList<>();
-        for (Country country : countries){
+            for (Country country : countries) {
             rtn.add(new CountryDTO(country));
         }
         return rtn;
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
-    public CountryDTO getCountryById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public CountryDTO getCountryById(@PathVariable("id") Long id) {
         Country country = countryService.getById(id);
         CountryDTO rtn = new CountryDTO(country);
         return rtn;
     }
 
     @PostMapping(value = "/create")
-    public void createCountry(String name, String iso){
-        Country country = new Country (name,iso);
+    public void createCountry(String name, String iso) {
+        Country country = new Country(name, iso);
         countryService.saveCountry(country);
     }
     @DeleteMapping(value = "/{name}")
-    public void deleteCountry(@PathVariable("name") String name){
+    public void deleteCountry(@PathVariable("name") String name) {
         countryService.deleteCountry(name);
     }
 }

@@ -20,32 +20,32 @@ import java.util.List;
 public class RouteController {
 
     @Autowired
-    RouteService routeService;
+    private RouteService routeService;
     @Autowired
-    AirportService airportService;
+    private AirportService airportService;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<RouteDTO> listRoutes() {
         List<Route> routes = routeService.getAll();
         List<RouteDTO> rtn = new ArrayList<>();
-        for (Route route: routes){
+        for (Route route: routes) {
             rtn.add(new RouteDTO(route));
         }
         return rtn;
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
-    public RouteDTO getRouteById(@PathVariable("id") Long id){
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public RouteDTO getRouteById(@PathVariable("id") Long id) {
         Route route = routeService.getById(id);
         RouteDTO rtn = new RouteDTO(route);
         return rtn;
     }
 
     @PostMapping(value = "/create")
-    public void createRoute(int distance, Long id_origin, Long id_destination){
+    public void createRoute(float distance, Long id_origin, Long id_destination) {
         Airport origin = airportService.getById(id_origin);
         Airport destination = airportService.getById(id_destination);
-        Route route = new Route (distance, origin, destination);
+        Route route = new Route(distance, origin, destination);
         routeService.saveRoute(route);
     }
 

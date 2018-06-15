@@ -1,6 +1,6 @@
 package com.utn.tp5.service;
 
-import com.utn.tp5.Persistence.CityPersistence;
+import com.utn.tp5.persistence.CityPersistence;
 import com.utn.tp5.model.City;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,40 +19,40 @@ public class CityServiceTest {
     private CityPersistence cityPersistence;
 
     @Before
-    public void contextLoads(){
+    public void contextLoads() {
         this.cityPersistence = mock(CityPersistence.class);
         this.cityService = new CityService(cityPersistence);
         this.city = mock(City.class);
     }
 
     @Test
-    public void whenACityIsSaved(){
+    public void whenACityIsSaved() {
         when(cityPersistence.save(this.city)).thenReturn(this.city);
         Boolean res = this.cityService.saveCity(this.city);
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
     @Test
-    public void whenACityIsDeleted(){
+    public void whenACityIsDeleted() {
         when(cityPersistence.save(this.city)).thenReturn(this.city);
         when(cityPersistence.deleteByName(this.city.getName())).thenReturn(true);
         this.cityService.saveCity(this.city);
         Boolean res = this.cityService.deleteCity(this.city.getName());
-        assertEquals(Boolean.TRUE,res);
+        assertEquals(Boolean.TRUE, res);
     }
 
     @Test
-    public void whenACityIsAskedById(){
+    public void whenACityIsAskedById() {
         when(cityPersistence.getOne(this.city.getId())).thenReturn(this.city);
         City c = this.cityService.getById(this.city.getId());
-        assertEquals(this.city,c);
+        assertEquals(this.city, c);
     }
 
     @Test
-    public void whenTheCityListIsAsked(){
-        List <City> expected = new ArrayList<>();
+    public void whenTheCityListIsAsked() {
+        List<City> expected = new ArrayList<>();
         when(cityPersistence.findAll()).thenReturn(expected);
         List<City> cities = this.cityService.getAll();
-        assertEquals(cities,expected);
+        assertEquals(cities, expected);
     }
 }
