@@ -44,9 +44,9 @@ public class AirportServiceTest {
     }
 
     @Test
-    public void whenAnAirportIsAskedById() {
-        when(airportPersistence.getOne(this.airport.getId())).thenReturn(this.airport);
-        Airport c = this.airportService.getById(this.airport.getId());
+    public void whenAnAirportIsAskedByIata() {
+        when(airportPersistence.getByIata(this.airport.getIata())).thenReturn(this.airport);
+        Airport c = this.airportService.getByIata(this.airport.getIata());
         assertEquals(this.airport, c);
     }
 

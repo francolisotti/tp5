@@ -31,9 +31,9 @@ public class AirportController {
        return rtn;
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public AirportDTO getAirportById(@PathVariable("id") Long id) {
-        Airport airport = airportService.getById(id);
+    @GetMapping(value = "/{iata}", produces = "application/json")
+    public AirportDTO getAirportByIata(@PathVariable("iata") String iata) {
+        Airport airport = airportService.getByIata(iata);
         AirportDTO rtn = new AirportDTO(airport);
         return rtn;
     }

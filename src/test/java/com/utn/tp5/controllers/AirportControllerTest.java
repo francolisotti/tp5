@@ -33,7 +33,7 @@ public class AirportControllerTest {
         this.city = new City("Example", "Exa", new Country("Example", "Exa"));
         this.airport = new Airport("Example", "Exa", this.city, (float) 10.234, (float) 15.2324);
         this.airport.setId((long) 1);
-        when(this.airportService.getById((long) 1)).thenReturn(this.airport);
+        when(this.airportService.getByIata(this.airport.getIata())).thenReturn(this.airport);
         when(this.airportService.saveAirport(this.airport)).thenReturn(true);
     }
 
@@ -50,8 +50,8 @@ public class AirportControllerTest {
     }
 
     @Test
-    public void whenAnAirportIsAskedById() {
-        AirportDTO a = airportController.getAirportById(this.airport.getId());
+    public void whenAnAirportIsAskedByIata() {
+        AirportDTO a = airportController.getAirportByIata(this.airport.getIata());
         AirportDTO b = new AirportDTO(this.airport);
         assertEquals(a.getName(), b.getName());
     }
