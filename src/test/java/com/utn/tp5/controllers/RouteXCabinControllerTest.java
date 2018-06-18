@@ -1,11 +1,8 @@
 package com.utn.tp5.controllers;
 
 import com.utn.tp5.model.*;
-import com.utn.tp5.service.CabinService;
+import com.utn.tp5.service.*;
 import com.utn.tp5.DTO.RouteXCabinDTO;
-import com.utn.tp5.service.PriceService;
-import com.utn.tp5.service.RouteService;
-import com.utn.tp5.service.RouteXCabinService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,12 +24,16 @@ public class RouteXCabinControllerTest {
     private RouteService routeService;
     private CabinService cabinService;
     private PriceService priceService;
+    private AirportService airportService;
     private RouteXCabin routeXCabin;
     private Cabin cabin;
     private Route route;
     private Price price;
     private Airport origin;
     private Airport destination;
+    private List<RouteXCabin> routeXCabins;
+    private List<RouteXCabinDTO> routeXCabinsDTO;
+
 
     @Before
     public void contextLoads() {
@@ -40,39 +41,45 @@ public class RouteXCabinControllerTest {
         this.routeService = mock(RouteService.class);
         this.cabinService = mock(CabinService.class);
         this.priceService = mock(PriceService.class);
-        this.routeXCabinController = new RouteXCabinController(routeXCabinService, routeService, cabinService, priceService);
+        this.airportService = mock(AirportService.class);
 
+        this.routeXCabinController = new RouteXCabinController(routeXCabinService, routeService, cabinService, priceService, airportService);
         this.cabin = new Cabin("Example");
-
         this.origin = new Airport("Example", "Exa", new City("Example", "Exa", new Country("Example", "Exa")), 1010, 0101);
         this.destination = new Airport("Example2", "Exa2", new City("Example2", "Exa2", new Country("Example2", "Exa2")), 5050, 0505);
         this.route = new Route(1234, this.origin, this.destination);
-
         this.price = new Price(1234, mock(Date.class));
-
         this.routeXCabin = new RouteXCabin(this.cabin, this.route, this.price);
         this.routeXCabin.setId((long) 1);
+        this.routeXCabins = new ArrayList<>();
+        this.routeXCabinsDTO = new ArrayList<>();
+        routeXCabins.add(this.routeXCabin);
+
         when(this.routeXCabinService.getById((long) 1)).thenReturn(this.routeXCabin);
         when(this.routeXCabinService.saveRouteXCabin(this.routeXCabin)).thenReturn(true);
+        when(this.airportService.getByIata(this.origin.getIata())).thenReturn(this.origin);
+        when(this.airportService.getByIata(this.destination.getIata())).thenReturn(this.destination);
+        when(this.routeService.getByOriginAndDestination(this.origin, this.destination)).thenReturn(this.route);
+        when(this.routeXCabinService.getByRoute(this.route)).thenReturn(this.routeXCabins);
+
     }
 
     @Test
     public void whenRouteXCabinListIsAsked() {
-        List<RouteXCabin> routeXCabins = new ArrayList<>();
-        routeXCabins.add(this.routeXCabin);
-        when(this.routeXCabinService.getAll()).thenReturn(routeXCabins);
-        List<RouteXCabinDTO> DTOList = routeXCabinController.listRoutesXCabins();
+        routeXCabinsDTO = routeXCabinController.listRoutesXCabins();
         for (RouteXCabin routeXCabin : routeXCabins) {
-            DTOList.add(new RouteXCabinDTO(routeXCabin));
+            routeXCabinsDTO.add(new RouteXCabinDTO(routeXCabin));
         }
-        assertEquals(routeXCabins.get(0).getPrice().getPrice(), DTOList.get(0).getPrice().getPrice());
+        assertEquals(routeXCabins.get(0).getPrice().getPrice(), routeXCabinsDTO.get(0).getPrice().getPrice());
     }
 
     @Test
-    public void whenARouteXCabinIsAskedById() {
-        RouteXCabinDTO a = routeXCabinController.getRouteXCabinById(this.routeXCabin.getId());
-        RouteXCabinDTO b = new RouteXCabinDTO(this.routeXCabin);
-        assertEquals(a.getPrice().getPrice(), b.getPrice().getPrice());
+    public void whenARouteXCabinIsAskedByOriginAndDestination() {
+        routeXCabinsDTO = routeXCabinController.getRouteByOriginAndDestination(this.routeXCabin.getRoute().getOrigin().getIata(),this.routeXCabin.getRoute().getDestination().getIata());
+        for (RouteXCabin routeXCabin: routeXCabins) {
+            routeXCabinsDTO.add(new RouteXCabinDTO(routeXCabin));
+        }
+        assertEquals(routeXCabins.get(0).getPrice().getPrice(), routeXCabinsDTO.get(0).getPrice().getPrice());
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.utn.tp5.service.CityService;
 import com.utn.tp5.DTO.CityDTO;
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
+import com.utn.tp5.service.CountryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,14 +21,15 @@ public class CityControllerTest {
 
     private CityController cityController;
     private CityService cityService;
+    private CountryService countryService;
     private City city;
     private Country country;
 
     @Before
     public void contextLoads(){
         this.cityService = mock(CityService.class);
-        this.cityService = mock(CityService.class);
-        this.cityController = new CityController(cityService);
+        this.countryService = mock(CountryService.class);
+        this.cityController = new CityController(cityService,countryService);
         this.country = mock(Country.class);
         this.city = new City("Example","Exa",this.country);
         this.city.setId((long)1);

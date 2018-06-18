@@ -1,5 +1,4 @@
 package com.utn.tp5.controllers;
-
 import com.utn.tp5.DTO.PriceDTO;
 import com.utn.tp5.service.PriceService;
 import com.utn.tp5.model.Price;
@@ -7,7 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,9 @@ public class PriceController {
     }
 
     @PostMapping(value = "/create")
-    public void createPrice(int price, Date dateFrom) {
+    public void createPrice(int price, String date) throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+        Date dateFrom = formatter.parse(date);
         Price country = new Price(price, dateFrom);
         priceService.savePrice(country);
     }

@@ -46,15 +46,15 @@ public class RouteController {
     }
 
     @PostMapping(value = "/create")
-    public void createRoute(float distance, Long id_origin, Long id_destination) {
+    public boolean createRoute(float distance, Long id_origin, Long id_destination) {
         Airport origin = airportService.getById(id_origin);
         Airport destination = airportService.getById(id_destination);
         Route route = new Route(distance, origin, destination);
-        routeService.saveRoute(route);
+        return routeService.saveRoute(route);
     }
 
-   /* @DeleteMapping(value = "/{id}")
-    public void deleteRoute(@PathVariable("name") String name){
-        routeService.deleteRoute(name);
-    }*/
+    @DeleteMapping(value = "/{id}")
+    public boolean deleteRoute(@PathVariable("name") Long id){
+        return routeService.deleteRoute(id);
+    }
 }

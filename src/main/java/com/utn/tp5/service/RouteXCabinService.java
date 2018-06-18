@@ -1,5 +1,7 @@
 package com.utn.tp5.service;
 
+import com.utn.tp5.model.Airport;
+import com.utn.tp5.model.Route;
 import com.utn.tp5.model.RouteXCabin;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,10 @@ public class RouteXCabinService {
             rtn = true;
         }
         return rtn;
+    }
+
+    public List<RouteXCabin> getByRoute (Route route){
+        return routeXCabinPersistence.getByRoute(route);
     }
 
     public boolean modifyRouteXCabin(RouteXCabin routeXCabin, int newPrice) {

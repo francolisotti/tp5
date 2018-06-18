@@ -31,6 +31,10 @@ public class RouteService {
         return routePersistence.getByOrigin(airport);
     }
 
+    public Route getByOriginAndDestination(Airport origin, Airport destination){
+        return routePersistence.getByOriginAndDestination(origin, destination);
+    }
+
     public boolean saveRoute(Route r) {
         Route saved = routePersistence.save(r);
         boolean rtn = false;
@@ -40,7 +44,8 @@ public class RouteService {
         return rtn;
     }
 
-    /*public void deleteRoute(String name){
-        routePersistence.deleteByOriginDestination(name);
-    }*/
+    public boolean deleteRoute(Long id){
+        Route r = this.getById(id);
+        return routePersistence.deleteByOriginAndDestination(r.getOrigin(), r.getDestination());
+    }
 }

@@ -4,6 +4,7 @@ import com.utn.tp5.DTO.CityDTO;
 import com.utn.tp5.model.City;
 import com.utn.tp5.model.Country;
 import com.utn.tp5.service.CityService;
+import com.utn.tp5.service.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class CityController {
 
     @Autowired
     CityService cityService;
+    @Autowired
+    CountryService countryService;
 
     @GetMapping(value = "/", produces = "application/json")
     public List<CityDTO> listCities() {
@@ -37,8 +40,9 @@ public class CityController {
         return rtn;
     }
 
-    @GetMapping(value = "/create")
-    public void createCity(String name, String iata, Country country) {
+    @PostMapping(value = "/create")
+    public void createCity(String name, String iata, Long id_country) {
+        Country country = countryService.getById(id_country);
         City c = new City(name, iata, country);
         cityService.saveCity(c);
     }

@@ -39,7 +39,7 @@ public class AirportController {
     }
 
     @PostMapping(value = "/create")
-    public void createAirport(String name, String iata, long id_city, float latitude, float longitude) {
+    public void createAirport(String name, String iata, Long id_city, float latitude, float longitude) {
         City city = cityService.getById(id_city);
         Airport a = new Airport(name, iata, city, latitude, longitude);
         airportService.saveAirport(a);
