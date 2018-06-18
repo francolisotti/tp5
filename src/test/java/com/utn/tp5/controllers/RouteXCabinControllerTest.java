@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class RouteXCabinControllerTest {
         this.origin = new Airport("Example", "Exa", new City("Example", "Exa", new Country("Example", "Exa")), 1010, 0101);
         this.destination = new Airport("Example2", "Exa2", new City("Example2", "Exa2", new Country("Example2", "Exa2")), 5050, 0505);
         this.route = new Route(1234, this.origin, this.destination);
-        this.price = new Price(1234, mock(Date.class));
+        this.price = new Price(1234, new Date());
         this.routeXCabin = new RouteXCabin(this.cabin, this.route, this.price);
         this.routeXCabin.setId((long) 1);
         this.routeXCabins = new ArrayList<>();
