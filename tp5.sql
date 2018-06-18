@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 18-06-2018 a las 13:04:00
+-- Tiempo de generación: 18-06-2018 a las 15:46:46
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -30,15 +30,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `airports`;
 CREATE TABLE IF NOT EXISTS `airports` (
-  `id_airport` int(11) NOT NULL,
+  `id_airport` bigint(20) NOT NULL,
   `iata` varchar(255) DEFAULT NULL,
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `fk_id_city` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_airport`),
-  UNIQUE KEY `UK_r1dv8rkrpwir5p4plt29q9s20` (`iata`),
-  KEY `FK8s37ujesmx6yajou4bredwgix` (`fk_id_city`)
+  KEY `FKe3w5voc71ljxt3o3isgt2vr5n` (`fk_id_city`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -61,10 +60,10 @@ INSERT INTO `airports` (`id_airport`, `iata`, `latitude`, `longitude`, `name`, `
 
 DROP TABLE IF EXISTS `cabins`;
 CREATE TABLE IF NOT EXISTS `cabins` (
-  `id_cabin` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cabin` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_cabin`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `cabins`
@@ -89,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `cities` (
   `name` varchar(255) DEFAULT NULL,
   `fk_id_country` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_city`),
-  UNIQUE KEY `UK_5o1oxm4tnvpt5uojbmvta3w9v` (`iata`),
   KEY `FK2q7krjp07a1vgt5icciv2pgoy` (`fk_id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -116,8 +114,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `id_country` bigint(20) NOT NULL,
   `iso` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_country`),
-  UNIQUE KEY `UK_2k1ry1dffoxv5xpa73jh7ec40` (`iso`)
+  PRIMARY KEY (`id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -146,12 +143,13 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(136),
-(136),
-(136),
-(136),
-(136),
-(136);
+(1),
+(1),
+(1),
+(1),
+(1),
+(1),
+(1);
 
 -- --------------------------------------------------------
 
@@ -161,22 +159,25 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 
 DROP TABLE IF EXISTS `prices`;
 CREATE TABLE IF NOT EXISTS `prices` (
-  `id_price` int(11) NOT NULL AUTO_INCREMENT,
+  `id_price` bigint(20) NOT NULL,
+  `date` datetime DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  PRIMARY KEY (`id_price`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=latin1;
+  `fk_id_route` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_price`),
+  KEY `FK36n8ncklcihcphwn1w38j4pyc` (`fk_id_route`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `prices`
 --
 
-INSERT INTO `prices` (`id_price`, `price`, `date`) VALUES
-(20, 1100, '2018-06-05'),
-(21, 1000, '2018-06-20'),
-(22, 1500, '2018-06-23'),
-(23, 1230, '2018-06-28'),
-(135, 350, '2018-10-10');
+INSERT INTO `prices` (`id_price`, `date`, `price`, `fk_id_route`) VALUES
+(1, '2018-06-01 00:00:00', 2000, 1),
+(2, '2018-06-07 00:00:00', 2500, 1),
+(3, '2018-06-06 00:00:00', 5000, 2),
+(4, '2018-06-22 00:00:00', 3000, 4),
+(5, '2018-06-01 00:00:00', 1500, 4),
+(6, '2018-06-18 00:00:00', 3000, 4);
 
 -- --------------------------------------------------------
 
@@ -186,14 +187,14 @@ INSERT INTO `prices` (`id_price`, `price`, `date`) VALUES
 
 DROP TABLE IF EXISTS `routes`;
 CREATE TABLE IF NOT EXISTS `routes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `distance` float DEFAULT NULL,
-  `destination` int(11) DEFAULT NULL,
-  `origin` int(11) DEFAULT NULL,
+  `destination` bigint(20) DEFAULT NULL,
+  `origin` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_city_destination` (`destination`),
-  KEY `fk_city_origin` (`origin`)
-) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=latin1;
+  KEY `FK8x310a69na3wsipkw7ij62yha` (`destination`),
+  KEY `FK2lx8v5odphomt78itpebc6pks` (`origin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `routes`
@@ -212,24 +213,23 @@ INSERT INTO `routes` (`id`, `distance`, `destination`, `origin`) VALUES
 
 DROP TABLE IF EXISTS `routexcabin`;
 CREATE TABLE IF NOT EXISTS `routexcabin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cabin_id_cabin` int(11) DEFAULT NULL,
-  `route_id_route` int(11) DEFAULT NULL,
-  `price_id_price` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `cabin_id_cabin` bigint(20) DEFAULT NULL,
+  `route_id_route` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKbqjqhgraml448savpog2f5bir` (`route_id_route`),
   KEY `FKrp6adhiuqo62c96jeiewtpjrp` (`cabin_id_cabin`),
-  KEY `FKd5rn9src2yu3c57uqh1q1xjh7` (`price_id_price`)
-) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=latin1;
+  KEY `FKbqjqhgraml448savpog2f5bir` (`route_id_route`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `routexcabin`
 --
 
-INSERT INTO `routexcabin` (`id`, `cabin_id_cabin`, `route_id_route`, `price_id_price`) VALUES
-(1, 1, 1, 20),
-(2, 2, 2, 22),
-(134, 1, 122, 23);
+INSERT INTO `routexcabin` (`id`, `cabin_id_cabin`, `route_id_route`) VALUES
+(1, 3, 1),
+(2, 1, 1),
+(3, 4, 122),
+(4, 2, 122);
 
 --
 -- Restricciones para tablas volcadas
@@ -245,24 +245,27 @@ ALTER TABLE `airports`
 -- Filtros para la tabla `cities`
 --
 ALTER TABLE `cities`
-  ADD CONSTRAINT `FK2q7krjp07a1vgt5icciv2pgoy` FOREIGN KEY (`fk_id_country`) REFERENCES `countries` (`id_country`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK2q7krjp07a1vgt5icciv2pgoy` FOREIGN KEY (`fk_id_country`) REFERENCES `countries` (`id_country`);
+
+--
+-- Filtros para la tabla `prices`
+--
+ALTER TABLE `prices`
+  ADD CONSTRAINT `FK36n8ncklcihcphwn1w38j4pyc` FOREIGN KEY (`fk_id_route`) REFERENCES `routexcabin` (`id`);
 
 --
 -- Filtros para la tabla `routes`
 --
 ALTER TABLE `routes`
-  ADD CONSTRAINT `FK2lx8v5odphomt78itpebc6pks` FOREIGN KEY (`origin`) REFERENCES `airports` (`id_airport`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK8x310a69na3wsipkw7ij62yha` FOREIGN KEY (`destination`) REFERENCES `airports` (`id_airport`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_city_destination` FOREIGN KEY (`destination`) REFERENCES `airports` (`id_airport`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_city_origin` FOREIGN KEY (`origin`) REFERENCES `airports` (`id_airport`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK2lx8v5odphomt78itpebc6pks` FOREIGN KEY (`origin`) REFERENCES `airports` (`id_airport`),
+  ADD CONSTRAINT `FK8x310a69na3wsipkw7ij62yha` FOREIGN KEY (`destination`) REFERENCES `airports` (`id_airport`);
 
 --
 -- Filtros para la tabla `routexcabin`
 --
 ALTER TABLE `routexcabin`
-  ADD CONSTRAINT `FKbqjqhgraml448savpog2f5bir` FOREIGN KEY (`route_id_route`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKd5rn9src2yu3c57uqh1q1xjh7` FOREIGN KEY (`price_id_price`) REFERENCES `prices` (`id_price`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKrp6adhiuqo62c96jeiewtpjrp` FOREIGN KEY (`cabin_id_cabin`) REFERENCES `cabins` (`id_cabin`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FKbqjqhgraml448savpog2f5bir` FOREIGN KEY (`route_id_route`) REFERENCES `routes` (`id`),
+  ADD CONSTRAINT `FKrp6adhiuqo62c96jeiewtpjrp` FOREIGN KEY (`cabin_id_cabin`) REFERENCES `cabins` (`id_cabin`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

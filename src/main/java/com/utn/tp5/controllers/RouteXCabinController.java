@@ -7,7 +7,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,7 +35,7 @@ public class RouteXCabinController {
         List<RouteXCabin> routeXCabins = routeXCabinService.getAll();
         List<RouteXCabinDTO> rtn = new ArrayList<>();
         for (RouteXCabin routeXCabin : routeXCabins) {
-            rtn.add(new RouteXCabinDTO(routeXCabin));
+            rtn.add(new RouteXCabinDTO(routeXCabin, priceService.getByRouteXCabin(routeXCabin)));
         }
         return rtn;
     }
@@ -51,8 +55,8 @@ public class RouteXCabinController {
 
         List<RouteXCabinDTO> rtn = new ArrayList<>();
         List<RouteXCabin> routesXcabins = routeXCabinService.getByRoute(route);
-        for (RouteXCabin routeXCabin: routesXcabins) {
-            rtn.add(new RouteXCabinDTO(routeXCabin));
+        for (RouteXCabin routeXCabin : routesXcabins) {
+            rtn.add(new RouteXCabinDTO(routeXCabin, priceService.getByRouteXCabin(routeXCabin)));
         }
         return rtn;
     }
@@ -60,18 +64,19 @@ public class RouteXCabinController {
 
 
     @PostMapping(value = "/create")
-    public void createRouteXCabin(Long id_cabin, Long id_route, Long id_price) {
+    public void createRouteXCabin(Long id_cabin, Long id_route) {
         Cabin cabin = cabinService.getById(id_cabin);
         Route route = routeService.getById(id_route);
-        Price price = priceService.getById(id_price);
-
-        RouteXCabin routeXCabin = new RouteXCabin(cabin, route, price);
+        RouteXCabin routeXCabin = new RouteXCabin(cabin, route);
         routeXCabinService.saveRouteXCabin(routeXCabin);
     }
 
     @PutMapping(value = "/modify")
-    public void modifyRouteXCabin(Long id_routeXCabin, int newPrice) {
+    public boolean modifyRouteXCabin(Long id_routeXCabin, int newPrice, String date) throws ParseException {
         RouteXCabin routeXCabin = routeXCabinService.getById(id_routeXCabin);
-        routeXCabinService.modifyRouteXCabin(routeXCabin, newPrice);
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+        Date dateFrom = formatter.parse(date);
+        Price price = new Price(newPrice, dateFrom);
+        return routeXCabinService.modifyRouteXCabin(routeXCabin, price);
     }
 }

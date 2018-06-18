@@ -43,8 +43,8 @@ public class PriceController {
     public void createPrice(int price, String date) throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yy");
         Date dateFrom = formatter.parse(date);
-        Price country = new Price(price, dateFrom);
-        priceService.savePrice(country);
+        Price price2 = new Price(price, dateFrom);
+        priceService.savePrice(price2);
     }
 
     @DeleteMapping(value = "/delete")

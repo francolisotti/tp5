@@ -1,5 +1,6 @@
 package com.utn.tp5.service;
 
+import com.utn.tp5.model.RouteXCabin;
 import com.utn.tp5.persistence.PricePersistence;
 import com.utn.tp5.model.Price;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,10 @@ public class PriceService {
             rtn = true;
         }
         return rtn;
+    }
+
+    public List<Price> getByRouteXCabin(RouteXCabin rxc){
+        return pricePersistence.getByRouteXCabin(rxc);
     }
 
     public boolean deletePrice(Price price) {
